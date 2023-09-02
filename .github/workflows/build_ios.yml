@@ -1,0 +1,20 @@
+name: Build for iOS
+
+on:
+    workflow_dispatch:
+    push:
+
+jobs:
+    build_cpython:
+        name: Build CPython
+        concurrency:
+            group: ${{ github.ref }}
+            cancel-in-progress: true
+
+        runs-on: "macos-12"
+        steps:
+            - uses: actions/checkout@v3
+              with:
+                  submodules: recursive
+
+            - run: sh ./buildForiOS.sh
