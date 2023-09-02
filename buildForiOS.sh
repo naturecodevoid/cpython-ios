@@ -80,8 +80,8 @@ cp -r $XCFRAMEWORKS_DIR/libproj.xcframework/ios-arm64/libproj.framework/Headers/
 cp -r $XCFRAMEWORKS_DIR/libproj.xcframework/ios-arm64/libproj.framework  $PREFIX/Frameworks_iphoneos/
 
 find . -name \*.o -delete
-rm libpython3.11.dylib
-rm libpython3.11.a
+rm libpython3.11.dylib || true
+rm libpython3.11.a || true
 rm -f Programs/_testembed Programs/_freeze_importlib
 # preadv / pwritev are iOS 14+ only
 env CC=clang CXX=clang++ \
