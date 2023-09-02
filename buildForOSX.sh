@@ -75,7 +75,7 @@ downloadSource()
 # 1) compile for OSX (required)
 find . -name \*.o -delete
 rm -rf Library/lib/python3.11/site-packages/* 
-find Library -type f -name direct_url.jsonbak -delete
+find Library -type f -name direct_url.jsonbak -delete || true
 env CC=clang CXX=clang++ CPPFLAGS="-isysroot $OSX_SDKROOT" CFLAGS="-isysroot $OSX_SDKROOT" CXXFLAGS="-isysroot $OSX_SDKROOT" LDFLAGS="-isysroot $OSX_SDKROOT -lz" LDSHARED="clang -v -undefined error -dynamiclib -isysroot $OSX_SDKROOT -lz -L. -lpython3.11" OPT="$DEBUG" ./configure --prefix=$PREFIX/Library --with-system-ffi --enable-shared \
     $EXTRA_CONFIGURE_FLAGS_OSX \
 	--without-computed-gotos \
