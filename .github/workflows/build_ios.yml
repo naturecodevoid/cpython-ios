@@ -18,5 +18,9 @@ jobs:
                   #submodules: recursive
 
             - run: sh ./downloadFrameworks.sh
-            - run: brew install tree && tree
+
             - run: sh ./buildForiOS.sh
+
+            - name: Run tree if the job failed
+              run: brew install tree && tree
+              if: always() && job.status == "failure"
