@@ -23,4 +23,4 @@ jobs:
 
             - name: Run tree if the job failed
               run: brew install tree && tree
-              if: always() && job.status == "failure"
+              if: always() && job.status == 'failure'
