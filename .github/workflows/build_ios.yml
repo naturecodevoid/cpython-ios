@@ -18,5 +18,5 @@ jobs:
                   #submodules: recursive
 
             - run: sh ./downloadFrameworks.sh
-            - run: tree
+            - run: brew install tree && tree
             - run: sh ./buildForiOS.sh
