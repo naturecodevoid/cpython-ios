@@ -625,7 +625,7 @@ $PREFIX/build/lib.darwin-arm64-3.11/erfa/ >> $PREFIX/make_ios.log 2>&1
 # geopandas and cartopy: require Shapely, fiona, shapely
 # Shapely (interface for geos)
 pushd packages >> $PREFIX/make_ios.log 2>&1
-pushd Shapely-* >> $PREFIX/make_ios.log 2>&1
+pushd shapely-* >> $PREFIX/make_ios.log 2>&1
 rm -rf build/*  >> $PREFIX/make_ios.log 2>&1
 env CC=clang CXX=clang++ \
 	CPPFLAGS="-isysroot $IOS_SDKROOT -I$PREFIX -I $PREFIX/Frameworks_iphoneos/include -DCYTHON_PEP489_MULTI_PHASE_INIT=0 -DCYTHON_USE_DICT_VERSIONS=0" \
@@ -638,12 +638,14 @@ env CC=clang CXX=clang++ \
 	python3.11 setup.py build >> $PREFIX/make_ios.log 2>&1
 echo "Shapely libraries for iOS: "  >> $PREFIX/make_ios.log 2>&1
 find . -name \*.so  >> $PREFIX/make_ios.log 2>&1
-for library in shapely/speedups/_speedups.cpython-311-darwin.so shapely/vectorized/_vectorized.cpython-311-darwin.so
+pushd build/lib.macosx-${OSX_VERSION}-arm64-cpython-311 >> $PREFIX/make_ios.log 2>&1
+for library in `find . -name \*.so`
 do
 	directory=$(dirname $library)
 	mkdir -p $PREFIX/build/lib.darwin-arm64-3.11/$directory >> $PREFIX/make_ios.log 2>&1
-	cp ./build/lib.macosx-${OSX_VERSION}-arm64-cpython-311/$library $PREFIX/build/lib.darwin-arm64-3.11/$library >> $PREFIX/make_ios.log 2>&1
+	cp $library $PREFIX/build/lib.darwin-arm64-3.11/$library >> $PREFIX/make_ios.log 2>&1
 done
+popd  >> $PREFIX/make_ios.log 2>&1
 popd  >> $PREFIX/make_ios.log 2>&1
 popd  >> $PREFIX/make_ios.log 2>&1
 # Fiona (interface for GDAL)
@@ -662,7 +664,7 @@ GDAL_VERSION=3.6.0 \
 	python3.11 setup.py build >> $PREFIX/make_ios.log 2>&1
 echo "Fiona libraries for iOS: "  >> $PREFIX/make_ios.log 2>&1
 find . -name \*.so  >> $PREFIX/make_ios.log 2>&1
-for library in fiona/schema.cpython-311-darwin.so fiona/ogrext.cpython-311-darwin.so fiona/_crs.cpython-311-darwin.so fiona/_err.cpython-311-darwin.so fiona/_transform.cpython-311-darwin.so fiona/_shim.cpython-311-darwin.so fiona/_geometry.cpython-311-darwin.so fiona/_env.cpython-311-darwin.so
+for library in `find fiona -name \*.so`
 do
 	directory=$(dirname $library)
 	mkdir -p $PREFIX/build/lib.darwin-arm64-3.11/$directory >> $PREFIX/make_ios.log 2>&1

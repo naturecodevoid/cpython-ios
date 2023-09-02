@@ -1786,13 +1786,12 @@ static PyObject *py_dl_open(PyObject *self, PyObject *args)
 				(strcmp(nameC, "lxml.builder") == 0)) {
 			strcpy(nameC, "lxml_all");
 		} else if ((strcmp(nameC, "fiona.schema") == 0) ||
-				(strcmp(nameC, "fiona.ogrext") == 0) ||
-				(strcmp(nameC, "fiona._crs") == 0) ||
+				(strcmp(nameC, "fiona.crs") == 0) ||
 				(strcmp(nameC, "fiona._err") == 0) ||
 				(strcmp(nameC, "fiona._transform") == 0) ||
-				(strcmp(nameC, "fiona._shim") == 0) ||
 				(strcmp(nameC, "fiona._geometry") == 0) ||
-				(strcmp(nameC, "fiona._env") == 0)) {
+				(strcmp(nameC, "fiona._env") == 0) ||
+				(strcmp(nameC, "fiona.ogrext") == 0)) {
 			strcpy(nameC, "fiona_all");
 		} else if ((strcmp(nameC, "pyproj._transformer") == 0) ||
 				(strcmp(nameC, "pyproj._datadir") == 0) ||

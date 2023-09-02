@@ -1858,13 +1858,12 @@ class FileFinder:
                             "lxml.builder"]:
                         frameworkName = pythonName + "-" + "lxml_all"
                     elif fullname in ["fiona.schema",
-                            "fiona.ogrext",
-                            "fiona._crs",
-                            "fiona._err",
-                            "fiona._transform",
-                            "fiona._shim",
-                            "fiona._geometry",
-                            "fiona._env"]:
+                                      "fiona.crs",
+                                      "fiona._err",
+                                      "fiona._transform",
+                                      "fiona._geometry",
+                                      "fiona._env",
+                                      "fiona.ogrext"]:
                         frameworkName = pythonName + "-" + "fiona_all"
                     elif fullname in ["pyproj._transformer",
                             "pyproj._datadir",

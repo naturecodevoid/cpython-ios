@@ -1083,16 +1083,14 @@ $PREFIX/build/lib.macosx-${OSX_VERSION}-x86_64-3.11/erfa/ >> $PREFIX/make_instal
 	popd  >> $PREFIX/make_install_osx.log 2>&1
 	# geopandas and cartopy: require Shapely (GEOS), fiona (GDAL), pyproj (PROJ), rtree
 	# Shapely (interface for geos)
-	# Warning: changes case (shapely) and compilation method with 2.0
 	pushd packages >> $PREFIX/make_install_osx.log 2>&1
-	downloadSource Shapely 1.8.5 >> $PREFIX/make_install_osx.log 2>&1
-	pushd Shapely-* >> $PREFIX/make_install_osx.log 2>&1
+	downloadSource Shapely >> $PREFIX/make_install_osx.log 2>&1
+	pushd shapely-* >> $PREFIX/make_install_osx.log 2>&1
 	cp ./setup.py setup.bak.py  >> $PREFIX/make_install_osx.log 2>&1
 	cp ../setup_Shapely.py ./setup.py  >> $PREFIX/make_install_osx.log 2>&1
 	rm -rf build/*  >> $PREFIX/make_install_osx.log 2>&1
 	# Make sure we rebuild Cython files:
-	touch shapely/speedups/_speedups.pyx  >> $PREFIX/make_install_osx.log 2>&1
-	touch shapely/vectorized/_vectorized.pyx  >> $PREFIX/make_install_osx.log 2>&1
+	find . -type f -name \*.pyx -exec touch {} \; -print >> $PREFIX/make_install_osx.log 2>&1
 	env CC=clang CXX=clang++ CPPFLAGS="-isysroot $OSX_SDKROOT -I $PREFIX/Frameworks_macosx/include" \
 		CFLAGS="-isysroot $OSX_SDKROOT $DEBUG -I $PREFIX/Frameworks_macosx/include/" \
 		CXXFLAGS="-isysroot $OSX_SDKROOT $DEBUG -I $PREFIX/Frameworks_macosx/include" \
@@ -1111,12 +1109,14 @@ $PREFIX/build/lib.macosx-${OSX_VERSION}-x86_64-3.11/erfa/ >> $PREFIX/make_instal
 		python3.11 -m pip install . --no-build-isolation >> $PREFIX/make_install_osx.log 2>&1
 	echo "Shapely libraries for OSX: "  >> $PREFIX/make_install_osx.log 2>&1
 	find . -name \*.so  >> $PREFIX/make_install_osx.log 2>&1
-	for library in shapely/speedups/_speedups.cpython-311-darwin.so shapely/vectorized/_vectorized.cpython-311-darwin.so
+	pushd ./build/lib.macosx-${OSX_VERSION}-x86_64-cpython-311  >> $PREFIX/make_install_osx.log 2>&1
+	for library in `find . -name \*.so`
 	do
 		directory=$(dirname $library)
 		mkdir -p $PREFIX/build/lib.macosx-${OSX_VERSION}-x86_64-3.11/$directory >> $PREFIX/make_install_osx.log 2>&1
-		cp ./build/lib.macosx-${OSX_VERSION}-x86_64-cpython-311/$library $PREFIX/build/lib.macosx-${OSX_VERSION}-x86_64-3.11/$library >> $PREFIX/make_install_osx.log 2>&1
+		cp $library $PREFIX/build/lib.macosx-${OSX_VERSION}-x86_64-3.11/$library >> $PREFIX/make_install_osx.log 2>&1
 	done
+	popd  >> $PREFIX/make_install_osx.log 2>&1
 	popd  >> $PREFIX/make_install_osx.log 2>&1
 	popd  >> $PREFIX/make_install_osx.log 2>&1
 	# Fiona (interface for GDAL)
@@ -1149,7 +1149,7 @@ $PREFIX/build/lib.macosx-${OSX_VERSION}-x86_64-3.11/erfa/ >> $PREFIX/make_instal
 	# also installs: cligj, click_plugins, munch
 	echo "Fiona libraries for OSX: "  >> $PREFIX/make_install_osx.log 2>&1
 	find . -name \*.so  >> $PREFIX/make_install_osx.log 2>&1
-	for library in fiona/schema.cpython-311-darwin.so fiona/ogrext.cpython-311-darwin.so fiona/_crs.cpython-311-darwin.so fiona/_err.cpython-311-darwin.so fiona/_transform.cpython-311-darwin.so fiona/_shim.cpython-311-darwin.so fiona/_geometry.cpython-311-darwin.so fiona/_env.cpython-311-darwin.so
+	for library in `find fiona -name \*.so`
 	do
 		directory=$(dirname $library)
 		mkdir -p $PREFIX/build/lib.macosx-${OSX_VERSION}-x86_64-3.11/$directory >> $PREFIX/make_install_osx.log 2>&1
