@@ -1,5 +1,4 @@
-#! /bin/bash
-export PS4="  \$ "
+#! /bin/sh
 set -ev
 
 # jupyter-something adds pandas-2.0.0 and pyzmq-25.0b1, which breaks things down 
