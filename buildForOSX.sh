@@ -116,7 +116,9 @@ cp -r $XCFRAMEWORKS_DIR/libgdal.xcframework/macos-x86_64/libgdal.framework/Heade
 cp -r $XCFRAMEWORKS_DIR/libgdal.xcframework/macos-x86_64/libgdal.framework  $PREFIX/Frameworks_macosx/
 cp -r $XCFRAMEWORKS_DIR/libproj.xcframework/macos-x86_64/libproj.framework/Headers/* $PREFIX/Frameworks_macosx/include
 cp -r $XCFRAMEWORKS_DIR/libproj.xcframework/macos-x86_64/libproj.framework  $PREFIX/Frameworks_macosx/
-cp  /usr/local/lib/libgfortran.dylib $PREFIX/Frameworks_macosx/lib/libgfortran.dylib 
+if [ $USE_FORTRAN == 1 ]; then
+    cp /usr/local/lib/libgfortran.dylib $PREFIX/Frameworks_macosx/lib/libgfortran.dylib 
+fi
 # TODO: add downloading of proj data set + install in Library/share/proj.
 #
 rm -rf build/lib.macosx-${OSX_VERSION}-x86_64-3.11
