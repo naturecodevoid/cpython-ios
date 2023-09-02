@@ -17,9 +17,18 @@ jobs:
               #with:
                   #submodules: recursive
 
+            # BUILDING
+
             - run: sh ./downloadFrameworks.sh
 
             - run: sh ./buildForiOS.sh
+
+            # LOGGING / DEBUGGING
+
+            - run: cat ./configure_ios.log
+              if: always()
+            - run: cat ./make_ios.log
+              if: always()
 
             - name: Run tree if the job failed
               run: brew install tree && tree
