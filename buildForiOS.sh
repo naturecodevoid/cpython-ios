@@ -1,4 +1,5 @@
 #! /bin/sh
+set -e
 
 # jupyter-something adds pandas-2.0.0 and pyzmq-25.0b1, which breaks things down 
 # So far, the "fix" is to manually remove them. Add this to the script?
