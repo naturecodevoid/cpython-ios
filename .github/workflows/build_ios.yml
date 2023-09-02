@@ -11,12 +11,12 @@ jobs:
             group: ${{ github.ref }}
             cancel-in-progress: true
 
-        runs-on: "macos-12"
+        runs-on: macos-12
         steps:
             - uses: actions/checkout@v3
-              with:
-                  submodules: recursive
+              #with:
+                  #submodules: recursive
 
             - run: sh ./downloadFrameworks.sh
-
+            - run: tree
             - run: sh ./buildForiOS.sh
