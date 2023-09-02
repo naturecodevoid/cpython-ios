@@ -1,4 +1,5 @@
 #! /bin/sh
+set -ev
 
 # Changed install prefix so multiple install coexist
 export PREFIX=$PWD
