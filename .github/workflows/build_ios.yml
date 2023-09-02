@@ -21,6 +21,9 @@ jobs:
 
             - run: sh ./downloadFrameworks.sh
 
+            # We need to build for macOS before we can build for iOS
+            - run: sh ./buildForOSX.sh
+
             - run: sh ./buildForiOS.sh
 
             # LOGGING / DEBUGGING
@@ -30,6 +33,13 @@ jobs:
             - name: Run tree if the job failed
               run: brew install tree && tree
               if: always() && job.status == 'failure'
+
+            - run: cat ./configure_osx.log
+              if: always()
+            - run: cat ./make_osx.log
+              if: always()
+            - run: cat ./make_install_osx.log
+              if: always()
 
             - run: cat ./configure_ios.log
               if: always()
