@@ -5,7 +5,7 @@ curl -OL https://github.com/holzschu/ios_system/releases/download/v3.0.1/ios_err
 mkdir -p Python-aux
 pushd Python-aux
 
-for library in 
+for library in \
 libpng \
 libffi \
 libzmq \
