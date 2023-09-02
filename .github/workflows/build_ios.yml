@@ -25,11 +25,13 @@ jobs:
 
             # LOGGING / DEBUGGING
 
-            - run: cat ./configure_ios.log
-              if: always()
-            - run: cat ./make_ios.log
-              if: always()
+            # Failure only steps should go first so if another debugging step fails it doesn't trigger a failure only step
 
             - name: Run tree if the job failed
               run: brew install tree && tree
               if: always() && job.status == 'failure'
+
+            - run: cat ./configure_ios.log
+              if: always()
+            - run: cat ./make_ios.log
+              if: always()
