@@ -1,5 +1,4 @@
-#! /bin/bash
-export PS4="  \$ "
+#! /bin/sh
 set -ev
 
 curl -OL https://github.com/holzschu/ios_system/releases/download/v3.0.1/ios_error.h
