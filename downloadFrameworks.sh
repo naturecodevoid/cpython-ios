@@ -1,5 +1,5 @@
 #! /bin/sh
-set -e
+set -ev
 
 curl -OL https://github.com/holzschu/ios_system/releases/download/v3.0.1/ios_error.h
 mkdir -p Python-aux
