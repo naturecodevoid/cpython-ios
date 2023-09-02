@@ -17,4 +17,6 @@ jobs:
               with:
                   submodules: recursive
 
+            - run: sh ./downloadFrameworks.sh
+
             - run: sh ./buildForiOS.sh
